@@ -13,7 +13,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   display: flex;
   align-items: center;
@@ -27,11 +27,7 @@ export default {
 .header__title {
   font-family: NotoSansCJKKR;
   font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.56;
-  letter-spacing: normal;
   color: #212529;
 }
 </style>

@@ -10,9 +10,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user {
-  width: 100%;
+  float: left;
+  width: $user-width;
 }
 
 .user__login-button {

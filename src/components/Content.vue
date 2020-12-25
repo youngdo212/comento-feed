@@ -10,7 +10,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .content {
   padding: 0px calc((100vw - #{$main-width}) / 2);
   overflow: hidden;
