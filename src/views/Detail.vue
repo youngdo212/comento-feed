@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <Header title="[2020-12-29] 천영도" />
+    <Header title="[2020-12-29] 천영도" backIcon />
     <Content>
       {{ $route.params.id }}
     </Content>

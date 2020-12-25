@@ -14,5 +14,9 @@ export default {
 .card-container {
   float: right;
   width: $card-container-width;
+
+  @media (max-width: $layout-breakpoint-mobile) {
+    width: 100%;
+  }
 }
 </style>

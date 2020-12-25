@@ -14,6 +14,10 @@ export default {
 .user {
   float: left;
   width: $user-width;
+
+  @media (max-width: $layout-breakpoint-mobile) {
+    display: none;
+  }
 }
 
 .user__login-button {

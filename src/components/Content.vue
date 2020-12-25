@@ -14,5 +14,9 @@ export default {
 .content {
   padding: 0px calc((100vw - #{$main-width}) / 2);
   overflow: hidden;
+
+  @media (max-width: $layout-breakpoint-mobile) {
+    padding: 0px;
+  }
 }
 </style>

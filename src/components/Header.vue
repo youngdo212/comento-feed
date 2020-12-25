@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+    <div class="header__back-button" v-if="backIcon">&lt;</div>
     <div class="header__title">{{ title }}</div>
   </div>
 </template>
@@ -8,7 +9,8 @@
 export default {
   name: 'Header',
   props: {
-    title: String
+    title: String,
+    backIcon: Boolean
   }
 };
 </script>
@@ -22,6 +24,25 @@ export default {
   margin-bottom: 50px;
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.07);
   background-color: #ffffff;
+
+  @media (max-width: $layout-breakpoint-mobile) {
+    width: 100%;
+    height: 45px;
+    padding: 0px 15px;
+    margin-bottom: 0px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.07);
+  }
+}
+
+.header__back-button {
+  width: 13px;
+  height: 22px;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1;
+  color: #282c30;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .header__title {
