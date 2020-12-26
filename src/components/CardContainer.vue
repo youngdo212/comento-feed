@@ -1,12 +1,30 @@
 <template>
   <div class="card-container">
-    card container
+    <Card v-for="card in cards" v-bind="card" :key="card.id" />
   </div>
 </template>
 
 <script>
+import Card from '@/components/Card.vue';
+import { mapActions, mapState } from 'vuex';
+import { FETCH_CARDS } from '../store/types';
+
 export default {
-  name: 'CardContainer'
+  name: 'CardContainer',
+  components: {
+    Card
+  },
+  computed: {
+    ...mapState(['cards'])
+  },
+  methods: {
+    ...mapActions({
+      fetchCards: FETCH_CARDS
+    })
+  },
+  created() {
+    this.fetchCards();
+  }
 };
 </script>
 
