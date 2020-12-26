@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_HOST } from '../constant';
+import { API_HOST, FETCH_CARD_LENGTH } from '../constant';
 import { normalizeObjectProperty } from './normalize';
 
 export function getCards() {
@@ -11,7 +11,7 @@ export function getCards() {
       page: 0,
       ord: 'asc',
       category: [1, 2, 3],
-      limit: 10
+      limit: FETCH_CARD_LENGTH
     }
   }).then(({ data }) => {
     const cards = data.data || [];
