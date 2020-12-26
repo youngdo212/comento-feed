@@ -26,10 +26,9 @@ export default {
   background-color: #ffffff;
 
   @media (max-width: $layout-breakpoint-mobile) {
-    width: 100%;
     height: 45px;
     padding: 0px 15px;
-    margin-bottom: 0px;
+    margin-bottom: 6px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.07);
   }
 }

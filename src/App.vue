@@ -4,6 +4,6 @@
 
 <style lang="scss">
 #app {
-  font-family: SpoqaHanSans;
+  font-family: 'Spoqa Han Sans';
 }
 </style>
