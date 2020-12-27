@@ -1,4 +1,5 @@
 export const API_HOST = 'https://problem.comento.kr';
+export const IMG_BASE_URL = 'https://cdn.comento.kr/assignment';
 export const FETCH_CARD_DELAY = 300; // 밀리세턴드 단위의 초
 export const FETCH_POST_LENGTH = 10;
 export const FETCH_AD_LENGTH = 10;
