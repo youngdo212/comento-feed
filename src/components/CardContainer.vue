@@ -1,21 +1,29 @@
 <template>
   <div class="card-container">
     <Card v-for="card in cards" v-bind="card" :key="card.id" />
+    <InfiniteScroll v-if="hasMoreCards" @load="debouncedFetchCards" />
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card.vue';
+import InfiniteScroll from '@/components/InfiniteScroll.vue';
 import { mapActions, mapState } from 'vuex';
 import { FETCH_CARDS } from '../store/types';
+import { debounce } from '../utils/function';
+import { FETCH_CARD_DELAY } from '../constant';
 
 export default {
   name: 'CardContainer',
   components: {
-    Card
+    Card,
+    InfiniteScroll
   },
   computed: {
-    ...mapState(['cards'])
+    ...mapState({
+      cards: state => state.cards,
+      hasMoreCards: state => state.lastPage >= state.nextPage
+    })
   },
   methods: {
     ...mapActions({
@@ -23,7 +31,8 @@ export default {
     })
   },
   created() {
-    this.fetchCards();
+    this.debouncedFetchCards = debounce(this.fetchCards, FETCH_CARD_DELAY);
+    this.debouncedFetchCards();
   }
 };
 </script>

@@ -1,21 +1,24 @@
 import axios from 'axios';
-import { API_HOST, FETCH_CARD_LENGTH } from '../constant';
-import { normalizeObjectProperty } from './normalize';
+import { API_HOST } from '../constant';
 
-export function getCards() {
+/**
+ * 서버에 비동기 요청을 보내고 응답을 받는다
+ *
+ * @param {object=} param
+ * @param {string=} param.method http request method
+ * @param {string=} param.url 요청할 url. 절대 경로와 상대 경로 둘 다 가능하다
+ * @param {object=} param.params url query parameter
+ * @param {object=} param.data request body
+ * @returns {Promise}
+ */
+export function callApi({ method = 'get', url = '/', params, data }) {
   return axios({
-    method: 'get',
+    method,
     baseURL: API_HOST,
-    url: '/api/list',
-    params: {
-      page: 0,
-      ord: 'asc',
-      category: [1, 2, 3],
-      limit: FETCH_CARD_LENGTH
-    }
+    url,
+    params,
+    data
   }).then(({ data }) => {
-    const cards = data.data || [];
-
-    return cards.map(card => normalizeObjectProperty(card));
+    return data;
   });
 }
