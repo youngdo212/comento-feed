@@ -7,7 +7,7 @@
       :type="card.type"
       :data="card.data"
     />
-    <InfiniteScroll v-if="hasMoreCards" @load="debouncedFetchCards" />
+    <InfiniteScroll v-if="hasMoreCards" @load="fetchCards" />
   </div>
 </template>
 
@@ -17,8 +17,6 @@ import Card from '@/components/Card.vue';
 import InfiniteScroll from '@/components/InfiniteScroll.vue';
 import { mapActions, mapGetters, mapState } from 'vuex';
 import { FETCH_CARDS } from '../store/types';
-import { debounce } from '../utils/function';
-import { FETCH_CARD_DELAY } from '../constant';
 
 export default {
   name: 'CardContainer',
@@ -35,10 +33,6 @@ export default {
     ...mapActions({
       fetchCards: FETCH_CARDS
     })
-  },
-  created() {
-    this.debouncedFetchCards = debounce(this.fetchCards, FETCH_CARD_DELAY);
-    this.debouncedFetchCards();
   }
 };
 </script>
