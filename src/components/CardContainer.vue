@@ -1,7 +1,7 @@
 <template>
   <div class="card-container">
     <Card v-for="card in cards" v-bind="card" :key="card.id" />
-    <InfiniteScroll @load="debouncedFetchCards" />
+    <InfiniteScroll v-if="hasMoreCards" @load="debouncedFetchCards" />
   </div>
 </template>
 
@@ -20,7 +20,10 @@ export default {
     InfiniteScroll
   },
   computed: {
-    ...mapState(['cards'])
+    ...mapState({
+      cards: state => state.cards,
+      hasMoreCards: state => state.lastPage >= state.nextPage
+    })
   },
   methods: {
     ...mapActions({
