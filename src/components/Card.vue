@@ -43,6 +43,7 @@ export default {
   margin-bottom: 30px;
   padding: 20px 30px;
   background-color: #ffffff;
+  overflow: hidden;
 
   @media (max-width: $layout-breakpoint-mobile) {
     border: none;

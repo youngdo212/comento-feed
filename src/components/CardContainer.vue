@@ -13,7 +13,7 @@
 <script>
 import Card from '@/components/Card.vue';
 import InfiniteScroll from '@/components/InfiniteScroll.vue';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import { FETCH_CARDS } from '../store/types';
 import { debounce } from '../utils/function';
 import { FETCH_CARD_DELAY } from '../constant';
@@ -25,10 +25,8 @@ export default {
     InfiniteScroll
   },
   computed: {
-    ...mapState({
-      cards: state => state.cards,
-      hasMoreCards: state => state.lastPage >= state.nextPage
-    })
+    ...mapState(['cards']),
+    ...mapGetters(['hasMoreCards'])
   },
   methods: {
     ...mapActions({
