@@ -1,6 +1,11 @@
 <template>
   <div class="card-container">
-    <Card v-for="card in cards" v-bind="card" :key="card.id" />
+    <Card
+      v-for="card in cards"
+      :key="card.id"
+      :type="card.type"
+      :data="card.data"
+    />
     <InfiniteScroll v-if="hasMoreCards" @load="debouncedFetchCards" />
   </div>
 </template>
