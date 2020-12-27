@@ -24,3 +24,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  @media (max-width: $layout-breakpoint-mobile) {
+    background-color: #f4f5f7;
+  }
+}
+</style>

@@ -1,5 +1,6 @@
 <template>
   <div class="card-container">
+    <CardContainerHeader />
     <Card
       v-for="card in cards"
       :key="card.id"
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import CardContainerHeader from '@/components/CardContainerHeader.vue';
 import Card from '@/components/Card.vue';
 import InfiniteScroll from '@/components/InfiniteScroll.vue';
 import { mapActions, mapGetters, mapState } from 'vuex';
@@ -21,6 +23,7 @@ import { FETCH_CARD_DELAY } from '../constant';
 export default {
   name: 'CardContainer',
   components: {
+    CardContainerHeader,
     Card,
     InfiniteScroll
   },
