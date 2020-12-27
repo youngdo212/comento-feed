@@ -6,7 +6,7 @@
       :value="option.value"
       :title="option.title"
       :selected="option.value === selectedValue"
-      @click="onClick"
+      @option-click="onClick"
     />
   </div>
 </template>

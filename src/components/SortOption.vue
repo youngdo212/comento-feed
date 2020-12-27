@@ -1,5 +1,5 @@
 <template>
-  <div :class="classObject" @click="$emit('click', value)">
+  <div :class="classObject" @click="$emit('optionClick', value)">
     <div class="sort-option__flag" />
     <div class="sort-option__title">{{ title }}</div>
   </div>

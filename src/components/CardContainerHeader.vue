@@ -1,6 +1,10 @@
 <template>
   <div class="card-container-header">
-    <SortOptionContainer :options="sortOptions" :selectedValue="'desc'" />
+    <SortOptionContainer
+      :options="sortOptions"
+      :selectedValue="ord"
+      @select="fetchUpdateOrd($event)"
+    />
   </div>
 </template>
 
@@ -8,6 +12,8 @@
 import SortOptionContainer from '@/components/SortOptionContainer.vue';
 import { SortOptions, SORT_OPTIONS_NAME_MAP } from '../constant';
 import { getEnumValues } from '@/utils/enum';
+import { mapActions, mapState } from 'vuex';
+import { FETCH_UPDATE_ORD } from '@/store/types';
 
 export default {
   name: 'CardContainerHeader',
@@ -21,6 +27,14 @@ export default {
         title: SORT_OPTIONS_NAME_MAP[sortOption]
       }))
     };
+  },
+  computed: {
+    ...mapState(['ord'])
+  },
+  methods: {
+    ...mapActions({
+      fetchUpdateOrd: FETCH_UPDATE_ORD
+    })
   }
 };
 </script>

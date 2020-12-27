@@ -1,7 +1,18 @@
 import { createStore } from 'vuex';
 import { callApi } from '../utils/api';
-import { FETCH_ADS, FETCH_CARDS, FETCH_POSTS, SET_VALUE } from './types';
-import { AD_INTERVAL, FETCH_AD_LENGTH, FETCH_POST_LENGTH } from '../constant';
+import {
+  FETCH_ADS,
+  FETCH_CARDS,
+  FETCH_POSTS,
+  FETCH_UPDATE_ORD,
+  SET_VALUE
+} from './types';
+import {
+  AD_INTERVAL,
+  FETCH_AD_LENGTH,
+  FETCH_POST_LENGTH,
+  SortOptions
+} from '../constant';
 import { normalizeObjectProperty } from '@/utils/normalize';
 import { CardType } from '../constant';
 import { makeCard } from '../utils/card';
@@ -13,7 +24,8 @@ const state = {
   postNextPage: 1,
   postLastPage: Infinity,
   adNextPage: 1,
-  adLastPage: Infinity
+  adLastPage: Infinity,
+  ord: SortOptions.ASC
 };
 
 const getters = {
@@ -147,6 +159,23 @@ const actions = {
     commit(SET_VALUE, {
       key: 'ads',
       value: [...state.ads, ...data.map(ad => normalizeObjectProperty(ad))]
+    });
+  },
+
+  /**
+   * 정렬 순서를 변경한 후 다시 card를 로드한다
+   *
+   * @param {object} context
+   * @param {function} context.commit
+   * @param {object} context.state
+   * @param {string} value SortOptions enum의 값
+   */
+  [FETCH_UPDATE_ORD]({ commit, state }, value) {
+    if (state.ord === value) return;
+
+    commit(SET_VALUE, {
+      key: 'ord',
+      value
     });
   }
 };
