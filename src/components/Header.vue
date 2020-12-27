@@ -28,7 +28,7 @@ export default {
   @media (max-width: $layout-breakpoint-mobile) {
     height: 45px;
     padding: 0px 15px;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.07);
   }
 }

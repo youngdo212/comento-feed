@@ -1,19 +1,34 @@
 import { createStore } from 'vuex';
 import { callApi } from '../utils/api';
-import { FETCH_ADS, FETCH_CARDS, FETCH_POSTS, SET_VALUE } from './types';
-import { AD_INTERVAL, FETCH_AD_LENGTH, FETCH_POST_LENGTH } from '../constant';
+import {
+  FETCH_ADS,
+  FETCH_CARDS,
+  FETCH_POSTS,
+  FETCH_UPDATE_ORD,
+  INITIALIZE_CARDS,
+  SET_VALUE
+} from './types';
+import {
+  AD_INTERVAL,
+  FETCH_AD_LENGTH,
+  FETCH_POST_LENGTH,
+  SortOptions,
+  FETCH_CARD_DELAY
+} from '../constant';
 import { normalizeObjectProperty } from '@/utils/normalize';
 import { CardType } from '../constant';
 import { makeCard } from '../utils/card';
+import { debounce } from '../utils/function';
 
-const state = {
+const INITIAL_STATE = {
   cards: [],
   posts: [],
   ads: [],
   postNextPage: 1,
   postLastPage: Infinity,
   adNextPage: 1,
-  adLastPage: Infinity
+  adLastPage: Infinity,
+  ord: SortOptions.ASC
 };
 
 const getters = {
@@ -34,6 +49,21 @@ const mutations = {
   [SET_VALUE](state, payload) {
     const { key, value } = payload;
     state[key] = value;
+  },
+
+  /**
+   * cards와 관련된 상태를 초기화한다.
+   *
+   * @param {object} state
+   */
+  [INITIALIZE_CARDS](state) {
+    state.cards = INITIAL_STATE.cards;
+    state.posts = INITIAL_STATE.posts;
+    state.ads = INITIAL_STATE.ads;
+    state.postNextPage = INITIAL_STATE.postNextPage;
+    state.postLastPage = INITIAL_STATE.postLastPage;
+    state.adNextPage = INITIAL_STATE.adNextPage;
+    state.adLastPage = INITIAL_STATE.adLastPage;
   }
 };
 
@@ -91,7 +121,7 @@ const actions = {
       url: '/api/list',
       params: {
         page: state.postNextPage,
-        ord: 'asc',
+        ord: state.ord,
         category: [1, 2, 3],
         limit: FETCH_POST_LENGTH
       }
@@ -148,12 +178,35 @@ const actions = {
       key: 'ads',
       value: [...state.ads, ...data.map(ad => normalizeObjectProperty(ad))]
     });
+  },
+
+  /**
+   * 정렬 순서를 변경한 후 다시 card를 로드한다
+   *
+   * @param {object} context
+   * @param {function} context.dispatch
+   * @param {function} context.commit
+   * @param {object} context.state
+   * @param {string} value SortOptions enum의 값
+   */
+  async [FETCH_UPDATE_ORD]({ dispatch, commit, state }, value) {
+    if (state.ord === value) return;
+
+    commit(SET_VALUE, {
+      key: 'ord',
+      value
+    });
+    commit(INITIALIZE_CARDS);
+    await dispatch(FETCH_CARDS);
   }
 };
 
 export default createStore({
-  state,
+  state: { ...INITIAL_STATE },
   getters,
   mutations,
-  actions
+  actions: {
+    ...actions,
+    [FETCH_CARDS]: debounce(actions[FETCH_CARDS], FETCH_CARD_DELAY)
+  }
 });

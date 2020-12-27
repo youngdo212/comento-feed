@@ -8,3 +8,11 @@ export const CardType = {
   Post: 'post',
   Ad: 'ad'
 };
+export const SortOptions = {
+  ASC: 'asc',
+  DESC: 'desc'
+};
+export const SORT_OPTIONS_NAME_MAP = {
+  [SortOptions.ASC]: '오름차순',
+  [SortOptions.DESC]: '내림차순'
+};

@@ -50,6 +50,7 @@ export default {
     padding: 20px 15px;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.05);
     margin-bottom: 10px;
+    border-radius: 0px;
   }
 }
 </style>

@@ -8,7 +8,7 @@ export function debounce(callback, delay) {
   let timeoutId;
   let timestamp = 0;
 
-  return function() {
+  return function(...args) {
     const gap = Date.now() - timestamp;
 
     if (gap < delay) {
@@ -17,7 +17,7 @@ export function debounce(callback, delay) {
 
     timestamp = Date.now();
     timeoutId = setTimeout(() => {
-      callback();
+      callback(...args);
     }, delay);
   };
 }
