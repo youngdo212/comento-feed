@@ -44,6 +44,6 @@ function getIntersectionOberserver(callback, options = {}) {
 .infinite-scroll {
   width: 100%;
   height: 10px;
-  background: red;
+  background: transparent;
 }
 </style>

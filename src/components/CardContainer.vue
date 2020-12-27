@@ -1,7 +1,7 @@
 <template>
   <div class="card-container">
     <Card v-for="card in cards" v-bind="card" :key="card.id" />
-    <InfiniteScroll @load="fetchCards" />
+    <InfiniteScroll @load="debouncedFetchCards" />
   </div>
 </template>
 
@@ -10,6 +10,8 @@ import Card from '@/components/Card.vue';
 import InfiniteScroll from '@/components/InfiniteScroll.vue';
 import { mapActions, mapState } from 'vuex';
 import { FETCH_CARDS } from '../store/types';
+import { debounce } from '../utils/function';
+import { FETCH_CARD_DELAY } from '../constant';
 
 export default {
   name: 'CardContainer',
@@ -26,9 +28,8 @@ export default {
     })
   },
   created() {
-    this.fetchCards();
-    // this.debouncedFetchCards = debounce(this.fetchCards, 500);
-    // this.debouncedFetchCards();
+    this.debouncedFetchCards = debounce(this.fetchCards, FETCH_CARD_DELAY);
+    this.debouncedFetchCards();
   }
 };
 </script>
