@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <Header title="[2020-12-29] 천영도" backIcon />
-    <Content>
+    <Content v-if="post">
       <PostDetail v-bind="post" />
       <div class="detail__reply-info">
         <div class="detail__reply-info-label">답변</div>
@@ -17,7 +17,8 @@ import Header from '@/components/Header.vue';
 import Content from '@/components/Content.vue';
 import PostDetail from '@/components/PostDetail.vue';
 import Reply from '@/components/Reply.vue';
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
+import { FETCH_POST } from '@/store/modules/detail/types';
 
 export default {
   name: 'Detail',
@@ -31,6 +32,15 @@ export default {
     ...mapState({
       post: state => state.detail.post
     })
+  },
+  methods: {
+    ...mapActions({
+      fetchPost: FETCH_POST
+    })
+  },
+  created() {
+    const id = Number(this.$route.params.id);
+    this.fetchPost(id);
   }
 };
 </script>
