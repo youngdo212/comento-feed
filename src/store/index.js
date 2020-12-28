@@ -31,7 +31,22 @@ const INITIAL_STATE = {
   adNextPage: 1,
   adLastPage: Infinity,
   ord: SortOptions.ASC,
-  isModalVisible: false
+  isModalVisible: false,
+  category: [
+    {
+      id: 1,
+      name: 'apple'
+    },
+    {
+      id: 2,
+      name: 'banana'
+    },
+    {
+      id: 3,
+      name: 'coconut'
+    }
+  ],
+  filteredCategoryIds: [1, 3]
 };
 
 const getters = {

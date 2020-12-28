@@ -5,15 +5,7 @@
       <User />
       <CardContainer />
     </Content>
-    <Modal
-      title="필터"
-      confirmText="저장하기"
-      @confirm="onConfirm"
-      @close="onClose"
-      :visible="isModalVisible"
-    >
-      this is test modal
-    </Modal>
+    <Filter />
   </div>
 </template>
 
@@ -22,8 +14,7 @@ import Header from '@/components/Header.vue';
 import Content from '@/components/Content.vue';
 import User from '@/components/User.vue';
 import CardContainer from '@/components/CardContainer.vue';
-import Modal from '@/components/Modal.vue';
-import { mapState } from 'vuex';
+import Filter from '@/components/Filter.vue';
 
 export default {
   name: 'Home',
@@ -32,18 +23,7 @@ export default {
     Content,
     User,
     CardContainer,
-    Modal
-  },
-  methods: {
-    onClose() {
-      console.log('close');
-    },
-    onConfirm() {
-      console.log('confirm');
-    }
-  },
-  computed: {
-    ...mapState(['isModalVisible'])
+    Filter
   }
 };
 </script>
