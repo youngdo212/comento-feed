@@ -1,11 +1,13 @@
 import { createStore } from 'vuex';
 import { callApi } from '../utils/api';
 import {
+  CLOSE_MODAL,
   FETCH_ADS,
   FETCH_CARDS,
   FETCH_POSTS,
   FETCH_UPDATE_ORD,
   INITIALIZE_CARDS,
+  OPEN_MODAL,
   SET_VALUE
 } from './types';
 import {
@@ -28,7 +30,8 @@ const INITIAL_STATE = {
   postLastPage: Infinity,
   adNextPage: 1,
   adLastPage: Infinity,
-  ord: SortOptions.ASC
+  ord: SortOptions.ASC,
+  isModalVisible: false
 };
 
 const getters = {
@@ -64,6 +67,24 @@ const mutations = {
     state.postLastPage = INITIAL_STATE.postLastPage;
     state.adNextPage = INITIAL_STATE.adNextPage;
     state.adLastPage = INITIAL_STATE.adLastPage;
+  },
+
+  /**
+   * 모달 창을 띄운다
+   *
+   * @param {object} state
+   */
+  [OPEN_MODAL](state) {
+    state.isModalVisible = true;
+  },
+
+  /**
+   * 모당 창을 닫는다
+   *
+   * @param {object} state
+   */
+  [CLOSE_MODAL](state) {
+    state.isModalVisible = false;
   }
 };
 

@@ -10,7 +10,7 @@
       confirmText="저장하기"
       @confirm="onConfirm"
       @close="onClose"
-      :visible="true"
+      :visible="isModalVisible"
     >
       this is test modal
     </Modal>
@@ -23,6 +23,7 @@ import Content from '@/components/Content.vue';
 import User from '@/components/User.vue';
 import CardContainer from '@/components/CardContainer.vue';
 import Modal from '@/components/Modal.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
@@ -40,6 +41,9 @@ export default {
     onConfirm() {
       console.log('confirm');
     }
+  },
+  computed: {
+    ...mapState(['isModalVisible'])
   }
 };
 </script>
