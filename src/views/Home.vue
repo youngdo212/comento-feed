@@ -43,7 +43,7 @@ export default {
     ...mapState({
       cards: state => state.home.cards
     }),
-    ...mapGetters(['hasMoreCards'])
+    ...mapGetters(['hasMoreCards', 'isCardEmpty'])
   },
   methods: {
     ...mapMutations({
@@ -74,7 +74,11 @@ export default {
   created() {
     this.debouncedFetchCards = debounce(this.fetchCards, FETCH_CARD_DELAY);
     this.fetchCategory();
-    this.debouncedFetchCards();
+
+    // 카드가 비어있으면 카드를 불러온다.
+    if (this.isCardEmpty) {
+      this.debouncedFetchCards();
+    }
   }
 };
 </script>

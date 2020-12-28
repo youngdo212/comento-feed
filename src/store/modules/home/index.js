@@ -29,13 +29,16 @@ const INITIAL_STATE = {
   adLastPage: Infinity,
   ord: SortOptions.ASC,
   isModalVisible: false,
-  category: null,
+  category: [],
   filteredCategoryIds: null
 };
 
 const getters = {
   hasMoreCards(state) {
     return state.postNextPage <= state.postLastPage;
+  },
+  isCardEmpty(state) {
+    return state.cards.length === 0;
   }
 };
 
