@@ -1,11 +1,14 @@
 import { createStore } from 'vuex';
 import { callApi } from '../utils/api';
 import {
+  CLOSE_MODAL,
   FETCH_ADS,
   FETCH_CARDS,
+  FETCH_CATEGORY,
   FETCH_POSTS,
   FETCH_UPDATE_ORD,
   INITIALIZE_CARDS,
+  OPEN_MODAL,
   SET_VALUE
 } from './types';
 import {
@@ -28,7 +31,10 @@ const INITIAL_STATE = {
   postLastPage: Infinity,
   adNextPage: 1,
   adLastPage: Infinity,
-  ord: SortOptions.ASC
+  ord: SortOptions.ASC,
+  isModalVisible: false,
+  category: [],
+  filteredCategoryIds: []
 };
 
 const getters = {
@@ -64,6 +70,24 @@ const mutations = {
     state.postLastPage = INITIAL_STATE.postLastPage;
     state.adNextPage = INITIAL_STATE.adNextPage;
     state.adLastPage = INITIAL_STATE.adLastPage;
+  },
+
+  /**
+   * 모달 창을 띄운다
+   *
+   * @param {object} state
+   */
+  [OPEN_MODAL](state) {
+    state.isModalVisible = true;
+  },
+
+  /**
+   * 모당 창을 닫는다
+   *
+   * @param {object} state
+   */
+  [CLOSE_MODAL](state) {
+    state.isModalVisible = false;
   }
 };
 
@@ -122,7 +146,7 @@ const actions = {
       params: {
         page: state.postNextPage,
         ord: state.ord,
-        category: [1, 2, 3],
+        category: state.filteredCategoryIds,
         limit: FETCH_POST_LENGTH
       }
     });
@@ -198,6 +222,28 @@ const actions = {
     });
     commit(INITIALIZE_CARDS);
     await dispatch(FETCH_CARDS);
+  },
+
+  /**
+   * category를 불러온 뒤 기본 설정된 카테고리 필터값을 저장한다.
+   *
+   * @param {object} context
+   * @param {function} context.commit
+   */
+  async [FETCH_CATEGORY]({ commit }) {
+    const { category } = await callApi({
+      url: '/api/category'
+    });
+
+    commit(SET_VALUE, {
+      key: 'category',
+      value: category
+    });
+
+    commit(SET_VALUE, {
+      key: 'filteredCategoryIds',
+      value: category.map(item => item.id)
+    });
   }
 };
 

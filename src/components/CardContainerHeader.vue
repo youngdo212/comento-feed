@@ -5,6 +5,9 @@
       :selectedValue="ord"
       @select="fetchUpdateOrd($event)"
     />
+    <button class="card-container-header__filter-button" @click="openModal">
+      필터
+    </button>
   </div>
 </template>
 
@@ -12,8 +15,8 @@
 import SortOptionContainer from '@/components/SortOptionContainer.vue';
 import { SortOptions, SORT_OPTIONS_NAME_MAP } from '../constant';
 import { getEnumValues } from '@/utils/enum';
-import { mapActions, mapState } from 'vuex';
-import { FETCH_UPDATE_ORD } from '@/store/types';
+import { mapActions, mapMutations, mapState } from 'vuex';
+import { FETCH_UPDATE_ORD, OPEN_MODAL } from '@/store/types';
 
 export default {
   name: 'CardContainerHeader',
@@ -32,6 +35,9 @@ export default {
     ...mapState(['ord'])
   },
   methods: {
+    ...mapMutations({
+      openModal: OPEN_MODAL
+    }),
     ...mapActions({
       fetchUpdateOrd: FETCH_UPDATE_ORD
     })
@@ -51,5 +57,24 @@ export default {
     border-bottom: 1px solid #e1e4e7;
     margin-bottom: 0px;
   }
+}
+
+.card-container-header__filter-button {
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: $card-container-header-height;
+  padding: 0px;
+  margin: 0px;
+  font-size: 13px;
+  line-height: 1.92;
+  color: #adb5bd;
+  border-radius: 3px;
+  border: solid 1px #e1e4e7;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
 }
 </style>
