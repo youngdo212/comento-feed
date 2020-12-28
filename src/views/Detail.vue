@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <Header title="[2020-12-29] 천영도" backIcon />
+    <Header title="[2020-12-29] 천영도" backIcon @goback="$router.go(-1)" />
     <Content v-if="post">
       <PostDetail v-bind="post" />
       <div class="detail__reply-info">
@@ -17,8 +17,8 @@ import Header from '@/components/Header.vue';
 import Content from '@/components/Content.vue';
 import PostDetail from '@/components/PostDetail.vue';
 import Reply from '@/components/Reply.vue';
-import { mapActions, mapState } from 'vuex';
-import { FETCH_POST } from '@/store/modules/detail/types';
+import { mapActions, mapMutations, mapState } from 'vuex';
+import { FETCH_POST, SET_VALUE } from '@/store/modules/detail/types';
 
 export default {
   name: 'Detail',
@@ -34,6 +34,9 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      setValue: SET_VALUE
+    }),
     ...mapActions({
       fetchPost: FETCH_POST
     })
@@ -41,6 +44,12 @@ export default {
   created() {
     const id = Number(this.$route.params.id);
     this.fetchPost(id);
+  },
+  unmounted() {
+    this.setValue({
+      key: 'post',
+      value: null
+    });
   }
 };
 </script>
