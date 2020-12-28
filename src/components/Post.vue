@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <div class="post__header">
-      <div class="post__category-id">{{ categoryId }}</div>
+      <div class="post__category-id">{{ categoryName }}</div>
       <div class="post__id">{{ id }}</div>
     </div>
     <div class="post__body">
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { formatISOString } from '../utils/data';
 
 export default {
@@ -29,8 +30,13 @@ export default {
     contents: String
   },
   computed: {
+    ...mapState(['category']),
     date() {
       return formatISOString(this.createdAt);
+    },
+    categoryName() {
+      const category = this.category.find(item => item.id === this.categoryId);
+      return category.name;
     }
   }
 };
