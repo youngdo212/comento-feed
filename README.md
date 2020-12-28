@@ -11,12 +11,27 @@
 
 ## 미리보기
 
+### 홈 페이지
+
+무한 스크롤이 들어가 있는 피드 시스템
+
 ![screenshot1](images/screenshot1.png)
 
+### 디테일 페이지
+
+프론트 엔드 라우팅 처리로 상세 보기 페이지 이동
 ![screenshot2](images/screenshot2.png)
+
+### 필터
+모달을 이용한 필터 기능
 
 ![screenshot3](images/screenshot3.png)
 
+### 반응형 웹
+
+모바일을 위한 적절한 UI 렌더링
+
+n번째에 광고가 삽입된 모습
 ![screenshot4](images/screenshot4.png)
 
 ![screenshot5](images/screenshot5.png)
