@@ -1,43 +1,28 @@
 <template>
-  <div class="card-container">
-    <CardContainerHeader />
-    <Card
+  <div class="card-list">
+    <CardListItem
       v-for="card in cards"
       :key="card.id"
       :type="card.type"
       :data="card.data"
       @click="goToDetail(card)"
     />
-    <InfiniteScroll v-if="hasMoreCards" @load="fetchCards" />
   </div>
 </template>
 
 <script>
-import CardContainerHeader from '@/components/CardContainerHeader.vue';
-import Card from '@/components/Card.vue';
-import InfiniteScroll from '@/components/InfiniteScroll.vue';
-import { mapActions, mapGetters, mapState } from 'vuex';
-import { FETCH_CARDS } from '@/store/modules/home/types';
+import CardListItem from '@/components/CardListItem.vue';
 import { CardType } from '@/constant';
 
 export default {
-  name: 'CardContainer',
+  name: 'CardList',
   components: {
-    CardContainerHeader,
-    Card,
-    InfiniteScroll
+    CardListItem
   },
-  computed: {
-    ...mapState({
-      cards: state => state.home.cards
-    }),
-    ...mapGetters(['hasMoreCards'])
+  props: {
+    cards: Array
   },
   methods: {
-    ...mapActions({
-      fetchCards: FETCH_CARDS
-    }),
-
     /**
      * 카드의 타입이 post일 경우 상세 페이지로 이동한다.
      *
@@ -55,9 +40,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-container {
+.card-list {
   float: right;
-  width: $card-container-width;
+  width: $card-list-width;
 
   @media (max-width: $layout-breakpoint-mobile) {
     width: 100%;

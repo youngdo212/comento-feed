@@ -3,7 +3,9 @@
     <Header title="[2020-12-29] 천영도" />
     <Content>
       <User />
-      <CardContainer />
+      <CardListHeader @orderchange="onOrderChange" />
+      <CardList :cards="cards" />
+      <InfiniteScroll v-if="hasMoreCards" @load="debouncedFetchCards" />
     </Content>
     <Filter @save="onFilterSave" />
   </div>
@@ -13,14 +15,18 @@
 import Header from '@/components/Header.vue';
 import Content from '@/components/Content.vue';
 import User from '@/components/User.vue';
-import CardContainer from '@/components/CardContainer.vue';
+import CardListHeader from '@/components/CardListHeader.vue';
+import CardList from '@/components/CardList.vue';
+import InfiniteScroll from '@/components/InfiniteScroll.vue';
 import Filter from '@/components/Filter.vue';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import {
   FETCH_CARDS,
   FETCH_CATEGORY,
   INITIALIZE_CARDS
 } from '@/store/modules/home/types';
+import { debounce } from '@/utils/function';
+import { FETCH_CARD_DELAY } from '@/constant';
 
 export default {
   name: 'Home',
@@ -28,8 +34,16 @@ export default {
     Header,
     Content,
     User,
-    CardContainer,
+    CardListHeader,
+    CardList,
+    InfiniteScroll,
     Filter
+  },
+  computed: {
+    ...mapState({
+      cards: state => state.home.cards
+    }),
+    ...mapGetters(['hasMoreCards', 'isCardEmpty'])
   },
   methods: {
     ...mapMutations({
@@ -46,11 +60,25 @@ export default {
      */
     onFilterSave() {
       this.initializeCards();
-      this.fetchCards();
+      this.debouncedFetchCards();
+    },
+
+    /**
+     * 변경된 순서를 이용해서 cards를 다시 불러온다
+     */
+    onOrderChange() {
+      this.initializeCards();
+      this.debouncedFetchCards();
     }
   },
   created() {
+    this.debouncedFetchCards = debounce(this.fetchCards, FETCH_CARD_DELAY);
     this.fetchCategory();
+
+    // 카드가 비어있으면 카드를 불러온다.
+    if (this.isCardEmpty) {
+      this.debouncedFetchCards();
+    }
   }
 };
 </script>

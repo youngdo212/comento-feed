@@ -12,7 +12,7 @@ import { CardType } from '../constant';
 import { getEnumValues } from '../utils/enum';
 
 export default {
-  name: 'Card',
+  name: 'CardListItem',
   components: {
     Post,
     Ad
