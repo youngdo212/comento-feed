@@ -16,7 +16,7 @@ import CardContainerHeader from '@/components/CardContainerHeader.vue';
 import Card from '@/components/Card.vue';
 import InfiniteScroll from '@/components/InfiniteScroll.vue';
 import { mapActions, mapGetters, mapState } from 'vuex';
-import { FETCH_CARDS } from '../store/types';
+import { FETCH_CARDS } from '@/store/modules/home/types';
 
 export default {
   name: 'CardContainer',
@@ -26,7 +26,9 @@ export default {
     InfiniteScroll
   },
   computed: {
-    ...mapState(['cards']),
+    ...mapState({
+      cards: state => state.home.cards
+    }),
     ...mapGetters(['hasMoreCards'])
   },
   methods: {

@@ -13,10 +13,10 @@
 
 <script>
 import SortOptionContainer from '@/components/SortOptionContainer.vue';
-import { SortOptions, SORT_OPTIONS_NAME_MAP } from '../constant';
+import { SortOptions, SORT_OPTIONS_NAME_MAP } from '@/constant';
 import { getEnumValues } from '@/utils/enum';
 import { mapActions, mapMutations, mapState } from 'vuex';
-import { FETCH_UPDATE_ORD, OPEN_MODAL } from '@/store/types';
+import { FETCH_UPDATE_ORD, OPEN_MODAL } from '@/store/modules/home/types';
 
 export default {
   name: 'CardContainerHeader',
@@ -32,7 +32,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(['ord'])
+    ...mapState({
+      ord: state => state.home.ord
+    })
   },
   methods: {
     ...mapMutations({

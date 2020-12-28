@@ -30,7 +30,9 @@ export default {
     contents: String
   },
   computed: {
-    ...mapState(['category']),
+    ...mapState({
+      category: state => state.home.category
+    }),
     date() {
       return formatISOString(this.createdAt);
     },

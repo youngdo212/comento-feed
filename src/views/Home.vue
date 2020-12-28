@@ -16,7 +16,11 @@ import User from '@/components/User.vue';
 import CardContainer from '@/components/CardContainer.vue';
 import Filter from '@/components/Filter.vue';
 import { mapActions, mapMutations } from 'vuex';
-import { FETCH_CARDS, FETCH_CATEGORY, INITIALIZE_CARDS } from '@/store/types';
+import {
+  FETCH_CARDS,
+  FETCH_CATEGORY,
+  INITIALIZE_CARDS
+} from '@/store/modules/home/types';
 
 export default {
   name: 'Home',
