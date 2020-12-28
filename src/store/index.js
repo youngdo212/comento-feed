@@ -4,6 +4,7 @@ import {
   CLOSE_MODAL,
   FETCH_ADS,
   FETCH_CARDS,
+  FETCH_CATEGORY,
   FETCH_POSTS,
   FETCH_UPDATE_ORD,
   INITIALIZE_CARDS,
@@ -32,21 +33,8 @@ const INITIAL_STATE = {
   adLastPage: Infinity,
   ord: SortOptions.ASC,
   isModalVisible: false,
-  category: [
-    {
-      id: 1,
-      name: 'apple'
-    },
-    {
-      id: 2,
-      name: 'banana'
-    },
-    {
-      id: 3,
-      name: 'coconut'
-    }
-  ],
-  filteredCategoryIds: [1, 3]
+  category: [],
+  filteredCategoryIds: []
 };
 
 const getters = {
@@ -234,6 +222,28 @@ const actions = {
     });
     commit(INITIALIZE_CARDS);
     await dispatch(FETCH_CARDS);
+  },
+
+  /**
+   * category를 불러온 뒤 기본 설정된 카테고리 필터값을 저장한다.
+   *
+   * @param {object} context
+   * @param {function} context.commit
+   */
+  async [FETCH_CATEGORY]({ commit }) {
+    const { category } = await callApi({
+      url: '/api/category'
+    });
+
+    commit(SET_VALUE, {
+      key: 'category',
+      value: category
+    });
+
+    commit(SET_VALUE, {
+      key: 'filteredCategoryIds',
+      value: category.map(item => item.id)
+    });
   }
 };
 

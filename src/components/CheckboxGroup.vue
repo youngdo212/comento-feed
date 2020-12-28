@@ -41,7 +41,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.checkbox-group {
-}
-</style>
+<style lang="scss" scoped></style>

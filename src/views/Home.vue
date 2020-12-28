@@ -15,6 +15,8 @@ import Content from '@/components/Content.vue';
 import User from '@/components/User.vue';
 import CardContainer from '@/components/CardContainer.vue';
 import Filter from '@/components/Filter.vue';
+import { mapActions } from 'vuex';
+import { FETCH_CATEGORY } from '@/store/types';
 
 export default {
   name: 'Home',
@@ -24,6 +26,14 @@ export default {
     User,
     CardContainer,
     Filter
+  },
+  methods: {
+    ...mapActions({
+      fetchCategory: FETCH_CATEGORY
+    })
+  },
+  created() {
+    this.fetchCategory();
   }
 };
 </script>
