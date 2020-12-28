@@ -32,8 +32,8 @@ const INITIAL_STATE = {
   adLastPage: Infinity,
   ord: SortOptions.ASC,
   isModalVisible: false,
-  category: [],
-  filteredCategoryIds: []
+  category: null,
+  filteredCategoryIds: null
 };
 
 const getters = {
@@ -228,8 +228,9 @@ const actions = {
    *
    * @param {object} context
    * @param {function} context.commit
+   * @param {function} context.state
    */
-  async [FETCH_CATEGORY]({ commit }) {
+  async [FETCH_CATEGORY]({ commit, state }) {
     const { category } = await callApi({
       url: '/api/category'
     });
@@ -241,7 +242,7 @@ const actions = {
 
     commit(SET_VALUE, {
       key: 'filteredCategoryIds',
-      value: category.map(item => item.id)
+      value: state.filteredCategoryIds || category.map(item => item.id)
     });
   }
 };
