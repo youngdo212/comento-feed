@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <div class="header__back-button" v-if="backIcon">&lt;</div>
+    <div class="header__back-button" v-if="backIcon" @click="$emit('goback')">
+      &lt;
+    </div>
     <div class="header__title">{{ title }}</div>
   </div>
 </template>
@@ -8,6 +10,7 @@
 <script>
 export default {
   name: 'Header',
+  emits: ['goback'],
   props: {
     title: String,
     backIcon: Boolean

@@ -18,7 +18,7 @@
 import Modal from '@/components/Modal.vue';
 import CheckboxGroup from '@/components/CheckboxGroup.vue';
 import { mapMutations, mapState } from 'vuex';
-import { CLOSE_MODAL, SET_VALUE } from '@/store/types';
+import { CLOSE_MODAL, SET_VALUE } from '@/store/modules/home/types';
 
 export default {
   name: 'Filter',
@@ -33,7 +33,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isModalVisible', 'category', 'filteredCategoryIds']),
+    ...mapState({
+      isModalVisible: state => state.home.isModalVisible,
+      category: state => state.home.category,
+      filteredCategoryIds: state => state.home.filteredCategoryIds
+    }),
     categoryNames() {
       return this.category.map(item => item.name);
     },
