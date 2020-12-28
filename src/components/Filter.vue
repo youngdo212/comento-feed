@@ -26,6 +26,7 @@ export default {
     Modal,
     CheckboxGroup
   },
+  emits: ['save'],
   data() {
     return {
       values: null
@@ -48,7 +49,7 @@ export default {
     }),
 
     /**
-     * 선택된 카테고리의 id를 저장하고 모달을 닫는다
+     * 선택된 카테고리의 id를 저장하고 모달을 닫는다.
      */
     onConfirm() {
       const filteredCategoryNames = this.values
@@ -63,6 +64,7 @@ export default {
         value: filteredCategoryIds
       });
       this.closeModal();
+      this.$emit('save');
     },
 
     /**

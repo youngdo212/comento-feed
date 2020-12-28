@@ -146,7 +146,7 @@ const actions = {
       params: {
         page: state.postNextPage,
         ord: state.ord,
-        category: [1, 2, 3],
+        category: state.filteredCategoryIds,
         limit: FETCH_POST_LENGTH
       }
     });
