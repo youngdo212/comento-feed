@@ -48,6 +48,10 @@ export default {
 
 .modal__dialog {
   width: 460px;
+
+  @media (max-width: $layout-breakpoint-mobile) {
+    width: 337px;
+  }
 }
 
 .modal__content {
@@ -96,5 +100,11 @@ export default {
   background-color: $main-color;
   border-radius: 5px;
   cursor: pointer;
+
+  @media (max-width: $layout-breakpoint-mobile) {
+    float: none;
+    width: 100%;
+    text-align: center;
+  }
 }
 </style>
