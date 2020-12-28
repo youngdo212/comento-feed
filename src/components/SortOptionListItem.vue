@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'SortOption',
+  name: 'SortOptionListItem',
   props: {
     title: String,
     value: String,

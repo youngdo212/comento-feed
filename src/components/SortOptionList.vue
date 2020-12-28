@@ -1,6 +1,6 @@
 <template>
-  <div class="sort-option-container">
-    <SortOption
+  <div class="sort-option-list">
+    <SortOptionListItem
       v-for="option in options"
       :key="option.value"
       :value="option.value"
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import SortOption from '@/components/SortOption.vue';
+import SortOptionListItem from '@/components/SortOptionListItem.vue';
 
 export default {
-  name: 'SortOptionContainer',
+  name: 'SortOptionList',
   components: {
-    SortOption
+    SortOptionListItem
   },
   props: {
     options: Array,
@@ -32,10 +32,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sort-option-container {
+.sort-option-list {
   display: flex;
   align-items: center;
-  height: $card-container-header-height;
+  height: $card-list-header-height;
   float: left;
 }
 </style>

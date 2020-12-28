@@ -5,7 +5,6 @@ import {
   FETCH_CARDS,
   FETCH_CATEGORY,
   FETCH_POSTS,
-  FETCH_UPDATE_ORD,
   INITIALIZE_CARDS,
   OPEN_MODAL,
   SET_VALUE
@@ -14,13 +13,11 @@ import {
   AD_INTERVAL,
   FETCH_AD_LENGTH,
   FETCH_POST_LENGTH,
-  SortOptions,
-  FETCH_CARD_DELAY
+  SortOptions
 } from '@/constant';
 import { normalizeObjectProperty } from '@/utils/normalize';
 import { CardType } from '@/constant';
 import { makeCard } from '@/utils/card';
-import { debounce } from '@/utils/function';
 
 const INITIAL_STATE = {
   cards: [],
@@ -204,26 +201,6 @@ const actions = {
   },
 
   /**
-   * 정렬 순서를 변경한 후 다시 card를 로드한다
-   *
-   * @param {object} context
-   * @param {function} context.dispatch
-   * @param {function} context.commit
-   * @param {object} context.state
-   * @param {string} value SortOptions enum의 값
-   */
-  async [FETCH_UPDATE_ORD]({ dispatch, commit, state }, value) {
-    if (state.ord === value) return;
-
-    commit(SET_VALUE, {
-      key: 'ord',
-      value
-    });
-    commit(INITIALIZE_CARDS);
-    await dispatch(FETCH_CARDS);
-  },
-
-  /**
    * category를 불러온 뒤 기본 설정된 카테고리 필터값을 저장한다.
    *
    * @param {object} context
@@ -251,8 +228,5 @@ export default {
   state: { ...INITIAL_STATE },
   getters,
   mutations,
-  actions: {
-    ...actions,
-    [FETCH_CARDS]: debounce(actions[FETCH_CARDS], FETCH_CARD_DELAY)
-  }
+  actions
 };

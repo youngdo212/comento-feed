@@ -1,28 +1,29 @@
 <template>
-  <div class="card-container-header">
-    <SortOptionContainer
+  <div class="card-list-header">
+    <SortOptionList
       :options="sortOptions"
       :selectedValue="ord"
-      @select="fetchUpdateOrd($event)"
+      @select="sort"
     />
-    <button class="card-container-header__filter-button" @click="openModal">
+    <button class="card-list-header__filter-button" @click="openModal">
       필터
     </button>
   </div>
 </template>
 
 <script>
-import SortOptionContainer from '@/components/SortOptionContainer.vue';
+import SortOptionList from '@/components/SortOptionList.vue';
 import { SortOptions, SORT_OPTIONS_NAME_MAP } from '@/constant';
 import { getEnumValues } from '@/utils/enum';
-import { mapActions, mapMutations, mapState } from 'vuex';
-import { FETCH_UPDATE_ORD, OPEN_MODAL } from '@/store/modules/home/types';
+import { mapMutations, mapState } from 'vuex';
+import { OPEN_MODAL, SET_VALUE } from '@/store/modules/home/types';
 
 export default {
-  name: 'CardContainerHeader',
+  name: 'CardListHeader',
   components: {
-    SortOptionContainer
+    SortOptionList
   },
+  emits: ['orderchange'],
   data() {
     return {
       sortOptions: getEnumValues(SortOptions).map(sortOption => ({
@@ -38,36 +39,54 @@ export default {
   },
   methods: {
     ...mapMutations({
+      setValue: SET_VALUE,
       openModal: OPEN_MODAL
     }),
-    ...mapActions({
-      fetchUpdateOrd: FETCH_UPDATE_ORD
-    })
+
+    /**
+     * 정렬 순서 상태를 변경하고 이벤트를 발생시킨다.
+     *
+     * @param {'asc' | 'desc'} ord
+     */
+    sort(ord) {
+      if (this.ord === ord) return;
+
+      this.setValue({
+        key: 'ord',
+        value: ord
+      });
+      this.$emit('orderchange');
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.card-container-header {
-  height: $card-container-header-height;
+.card-list-header {
+  float: right;
+  width: $card-list-width;
+  height: $card-list-header-height;
   margin-bottom: 11px;
   overflow: hidden;
   background-color: #fff;
 
   @media (max-width: $layout-breakpoint-mobile) {
+    box-sizing: border-box;
+    width: 100%;
+    height: 44px;
     padding: 10px 15px 10px 18px;
     border-bottom: 1px solid #e1e4e7;
     margin-bottom: 0px;
   }
 }
 
-.card-container-header__filter-button {
+.card-list-header__filter-button {
   float: right;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 48px;
-  height: $card-container-header-height;
+  height: $card-list-header-height;
   padding: 0px;
   margin: 0px;
   font-size: 13px;

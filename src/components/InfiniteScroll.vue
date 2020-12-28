@@ -42,6 +42,7 @@ function getIntersectionOberserver(callback, options = {}) {
 
 <style lang="scss" scoped>
 .infinite-scroll {
+  float: left;
   width: 100%;
   height: 10px;
   background: transparent;
