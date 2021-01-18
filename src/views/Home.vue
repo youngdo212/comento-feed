@@ -20,11 +20,7 @@ import CardList from '@/components/CardList.vue';
 import InfiniteScroll from '@/components/InfiniteScroll.vue';
 import Filter from '@/components/Filter.vue';
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
-import {
-  FETCH_CARDS,
-  FETCH_CATEGORY,
-  INITIALIZE_CARDS
-} from '@/store/modules/home/types';
+import { FETCH_CARDS, INITIALIZE_CARDS } from '@/store/modules/home/types';
 import { debounce } from '@/utils/function';
 import { FETCH_CARD_DELAY } from '@/constant';
 
@@ -51,8 +47,7 @@ export default {
     }),
 
     ...mapActions({
-      fetchCards: FETCH_CARDS,
-      fetchCategory: FETCH_CATEGORY
+      fetchCards: FETCH_CARDS
     }),
 
     /**
@@ -73,7 +68,6 @@ export default {
   },
   created() {
     this.debouncedFetchCards = debounce(this.fetchCards, FETCH_CARD_DELAY);
-    this.fetchCategory();
 
     // 카드가 비어있으면 카드를 불러온다.
     if (this.isCardEmpty) {

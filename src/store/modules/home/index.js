@@ -29,7 +29,7 @@ const INITIAL_STATE = {
   adLastPage: Infinity,
   ord: SortOptions.ASC,
   isModalVisible: false,
-  category: [],
+  category: null,
   filteredCategoryIds: null
 };
 
@@ -99,6 +99,7 @@ const actions = {
    * @param {object} context.state
    */
   async [FETCH_CARDS]({ dispatch, commit, state }) {
+    await dispatch(FETCH_CATEGORY);
     await dispatch(FETCH_POSTS);
     await dispatch(FETCH_ADS);
 
@@ -211,6 +212,8 @@ const actions = {
    * @param {function} context.state
    */
   async [FETCH_CATEGORY]({ commit, state }) {
+    if (state.category) return;
+
     const { category } = await callApi({
       url: '/api/category'
     });
@@ -222,7 +225,7 @@ const actions = {
 
     commit(SET_VALUE, {
       key: 'filteredCategoryIds',
-      value: state.filteredCategoryIds || category.map(item => item.id)
+      value: category.map(item => item.id)
     });
   }
 };

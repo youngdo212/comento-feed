@@ -39,9 +39,11 @@ export default {
       filteredCategoryIds: state => state.home.filteredCategoryIds
     }),
     categoryNames() {
+      if (!this.category) return [];
       return this.category.map(item => item.name);
     },
     filteredCategoryNames() {
+      if (!this.category) return [];
       return this.category
         .filter(item => this.filteredCategoryIds.indexOf(item.id) !== -1)
         .map(item => item.name);
@@ -56,6 +58,7 @@ export default {
      * 선택된 카테고리의 id를 저장하고 모달을 닫는다.
      */
     onConfirm() {
+      if (!this.category) return;
       const filteredCategoryNames = this.values
         ? [...this.values]
         : [...this.filteredCategoryNames];
